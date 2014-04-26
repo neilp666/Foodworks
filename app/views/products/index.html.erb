@@ -1,0 +1,43 @@
+<h1>Listing products</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= image_tag "products/#{product.image_url}" %></td>
+        <td><%= product.title %></td>
+        <td><%= print_price(product.price) %></td>
+
+        <td>
+           <% if print_stock(product.stock) %>
+              <span class="in_stock">In Stock (XX)</span>
+           <% else %>
+              <span class="out_stock">Out of Stock</span>
+           <% end %>
+        </td>
+        
+        <td><%= product.description %></td>
+        <td><%= link_to 'Show', product_path(product) %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Create a New Product', new_product_path, id: "new_product", class: "btn btn-link" %>
